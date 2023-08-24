@@ -66,7 +66,7 @@ const ListingAd = React.memo(
           <img
             src={`${pic},format&w=544q=100`}
             srcset={`
-			${pic},format&w=343&q=100,
+			${pic},format&w=343&q=100 343w,
 			${pic},format&w=544&q=100 544w`}
             alt={title}
             className="pic"
