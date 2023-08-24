@@ -1,13 +1,12 @@
-import React from "react";
-import "./styles.scss";
-import BuildingIcon from "./assets/building-icon.svg";
-import LazyLoad from "react-lazy-load";
+import React, { useState } from "react";
 
+import { PhoneMask } from "./components/phoneMask";
+import BuildingIcon from "./assets/building-icon.svg";
 import ArrowLeftIcon from "./assets/arrow-left.png";
 import RibbonLaunching from "./assets/ribbon-launching.png";
 import { formattedNumber } from "./utils/numberFormater";
-import { useEffect, useState } from "react";
-import { PhoneMask } from "./components/phoneMask";
+
+import "./styles.scss";
 
 const ListingAd = React.memo(
   ({
