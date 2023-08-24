@@ -1,0 +1,296 @@
+@import url(reset.css);
+
+@font-face {
+  font-family: Avenir Next;
+  src: url("assets/avenir-regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Avenir Next";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Avenir Next Regular"), local("avenir-next-regular"),
+    url("assets/avenir-regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Avenir Next";
+  font-weight: 400;
+  src: local("Avenir Next Medium"), local("avenir-next-medium"),
+    url("assets/avenir-medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Avenir Next";
+  font-weight: 500;
+  src: local("Avenir Next Demi Bold"), local("avenir-next-demi=bold"),
+    url("assets/avenir-demibold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Avenir Next";
+  font-weight: 600;
+  src: local("Avenir Next Bold"), local("avenir-next-bold"),
+    url("assets/avenir-bold.woff2") format("woff2");
+}
+:root {
+  --font-xl: 23px;
+  --font-lg: 19px;
+  --font-md: 16px;
+  --font-sm: 14px;
+  --font-xl-500: 16px;
+  --font-lg-500: 15px;
+  --font-md-500: 14px;
+  --font-sm-500: 12px;
+}
+
+$card-color-icon: #98bafc;
+$card-color-btn: #1757d7;
+$card-color-font-main: #1a2258;
+$card-color-font-soft: #787d9c;
+
+body {
+  background: #e5e5e5;
+  font-family: Avenir Next;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: var(--font-xl);
+}
+
+h2 {
+  font-weight: 500;
+  font-size: var(--font-lg);
+}
+
+label,
+address {
+  font-size: var(--font-sm);
+  color: $card-color-font-soft;
+}
+p,
+ul,
+span {
+  font-size: var(--font-md);
+}
+
+button {
+  font-size: var(--font-md);
+}
+
+// flex box
+.container {
+  display: flex;
+  flex-direction: column;
+  .row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    text-align: left;
+    flex-direction: row;
+    &--align-end {
+      align-items: flex-end;
+      justify-content: flex-end;
+    }
+  }
+}
+
+.App {
+  text-align: center;
+  background: white;
+  width: 100%;
+  max-width: 544px;
+  border-radius: 4px 4px 0px 0px;
+  box-shadow: 0px 4px 16px 0px rgba(11, 17, 52, 0.2);
+  position: relative;
+  margin: 20px auto;
+  color: $card-color-font-main;
+
+  .ribbon {
+    position: absolute;
+    top: 6px;
+    left: -4px;
+    z-index: 5;
+  }
+
+  .mainPic {
+    position: relative;
+    max-height: 272px;
+    @mixin gradient {
+      width: 20%;
+      content: "";
+      display: block;
+      position: absolute;
+      transition: opacity 0.3s ease-in-out;
+      height: 100%;
+      z-index: 0;
+      opacity: 0;
+    }
+    &::after {
+      @include gradient;
+      top: 0;
+      left: 0;
+      background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.5) 0%,
+        rgba(0, 0, 0, 0) 100%
+      );
+    }
+    &::before {
+      @include gradient;
+      top: 0;
+      right: 0;
+      background: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0.5) 0%,
+        rgba(0, 0, 0, 0) 60%
+      );
+    }
+
+    .pic {
+      width: 100%;
+      height: 272px;
+      object-fit: cover;
+    }
+    .arrow {
+      opacity: 0; /* Initially hidden */
+      transition: opacity 0.3s ease-in-out;
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      font: inherit;
+      z-index: 3;
+      &--left {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      &--right {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+
+        transform: translateY(-50%);
+        img {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    &:hover {
+      .arrow {
+        opacity: 1;
+      }
+      &::after {
+        opacity: 1;
+      }
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+  .mainContent {
+    padding: 25px;
+
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+      &__icon {
+        display: flex;
+        border-radius: 12px;
+        background: $card-color-icon;
+      }
+    }
+
+    .detail {
+      margin-bottom: 15px;
+      ul {
+        display: flex;
+        list-style-type: none;
+        li:not(:last-child)::after {
+          content: "·";
+          margin: 0 5px;
+        }
+      }
+    }
+
+    .price {
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+    }
+
+    .description {
+      opacity: 0;
+      height: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease-in-out;
+
+      &--open {
+        height: auto;
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    .show-btn {
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 500;
+      color: #1757d7;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  h1 {
+    font-weight: 500;
+    font-size: var(--font-xl-500);
+  }
+
+  h2 {
+    font-weight: 500;
+    font-size: var(--font-lg-500);
+  }
+
+  label,
+  address {
+    font-size: var(--font-sm-500);
+    color: $card-color-font-soft;
+  }
+  p,
+  ul,
+  span {
+    font-size: var(--font-md-500);
+  }
+
+  button {
+    font-size: var(--font-md-500);
+  }
+  .container {
+    .row {
+      flex-direction: column;
+    }
+  }
+  .App {
+    .mainContent {
+      .price {
+        flex-direction: row;
+        align-items: baseline;
+        text-align: left;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+    }
+  }
+}
