@@ -23,15 +23,14 @@ const ListingAd = React.memo(
     year,
   }) => {
     const [showDescription, setShowDescription] = useState(false);
-
-    let formattedDescription = description.replace(/(\d{4}) (\d{4})/g, "$1$2");
-    const descriptionLines = formattedDescription.split("\n");
+    const descriptionLines = description.split("\n");
 
     const processedText = descriptionLines.map((line, index) => {
-      const phoneNumbers = line.match(/\d{8}/g);
+      const phoneNumbers = line.match(/\d{8}|(\d{4}) (\d{4})/g);
       if (phoneNumbers) {
         let lastIndex = 0;
         const elements = [];
+
         phoneNumbers.forEach((phoneNumber, i) => {
           const beforePhoneNumber = line.substring(
             lastIndex,
@@ -62,10 +61,10 @@ const ListingAd = React.memo(
     return (
       <div className="App">
         <img src={RibbonLaunching} className="ribbon" />
-        <div className="mainPic">
+        <section className="mainPic">
           <img
             src={`${pic},format&w=544q=100`}
-            srcset={`
+            srcSet={`
 			${pic},format&w=343&q=100 343w,
 			${pic},format&w=544&q=100 544w`}
             alt={title}
@@ -79,8 +78,8 @@ const ListingAd = React.memo(
           <button className="arrow arrow--right">
             <img src={ArrowLeftIcon} />
           </button>
-        </div>
-        <div className="mainContent container">
+        </section>
+        <section className="mainContent container">
           <div className="row">
             <div className="col">
               <div className="title">
@@ -131,7 +130,7 @@ const ListingAd = React.memo(
               </button>
             </div>
           </div>
-        </div>
+        </section>
       </div>
     );
   }
