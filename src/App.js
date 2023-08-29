@@ -61,24 +61,32 @@ const ListingAd = React.memo(
     return (
       <div className="App">
         <img src={RibbonLaunching} className="ribbon" />
-        <section className="mainPic">
-          <img
-            src={`${pic},format&w=544q=100`}
-            srcSet={`
-			${pic},format&w=343&q=100 343w,
-			${pic},format&w=544&q=100 544w`}
-            alt={title}
-            className="pic"
-            loading="lazy"
-            fetchpriority="high"
-          />
+        <div className="mainPic">
+          <picture>
+            <source
+              media="(max-width:343px)"
+              srcset={`${pic},format&w=343&q=100`}
+            />
+            <source
+              media="(max-width:544px)"
+              srcset={`${pic},format&w=544&q=100`}
+            />
+            <img
+              src={`${pic},format&w=544&q=100`}
+              alt={title}
+              className="pic"
+              loading="lazy"
+              fetchpriority="high"
+              onLoad={(evt) => alert(evt.target.width)}
+            />
+          </picture>
           <button className="arrow arrow--left">
             <img src={ArrowLeftIcon} />
           </button>
           <button className="arrow arrow--right">
             <img src={ArrowLeftIcon} />
           </button>
-        </section>
+        </div>
         <section className="mainContent container">
           <div className="row">
             <div className="col">
