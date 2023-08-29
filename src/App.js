@@ -77,7 +77,6 @@ const ListingAd = React.memo(
               className="pic"
               loading="lazy"
               fetchpriority="high"
-              onLoad={(evt) => alert(evt.target.width)}
             />
           </picture>
           <button className="arrow arrow--left">
